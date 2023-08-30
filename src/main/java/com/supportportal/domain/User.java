@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-@Entity
+@Entity(name = "user_app")
 @Getter @Setter
 public class User implements Serializable {
 
