@@ -36,6 +36,4 @@ public class JwtAutheticationEntryPoint extends Http403ForbiddenEntryPoint {
 
     }
 
-
-
 }
