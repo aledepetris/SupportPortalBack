@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Getter @Setter
 public class HttpResponse {
 
