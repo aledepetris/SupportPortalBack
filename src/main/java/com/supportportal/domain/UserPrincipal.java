@@ -15,6 +15,10 @@ public class UserPrincipal implements UserDetails {
     @Autowired
     private User user;
 
+    public UserPrincipal(User user) {
+        this.user = user;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return stream(user.getAuthorities()).map(SimpleGrantedAuthority::new).collect(Collectors.toList());
