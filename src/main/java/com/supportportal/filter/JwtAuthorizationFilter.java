@@ -2,6 +2,7 @@ package com.supportportal.filter;
 
 import static com.supportportal.constant.SecurityConstant.*;
 import com.supportportal.utility.JWTTokenProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -20,11 +21,8 @@ import java.util.List;
 @Component
 public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
-    private final JWTTokenProvider jwtTokenProvider;
-
-    public JwtAuthorizationFilter(JWTTokenProvider jwtTokenProvider) {
-        this.jwtTokenProvider = jwtTokenProvider;
-    }
+    @Autowired
+    private JWTTokenProvider jwtTokenProvider;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
