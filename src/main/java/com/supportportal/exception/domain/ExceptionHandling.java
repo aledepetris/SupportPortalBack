@@ -27,7 +27,7 @@ import java.util.Objects;
 @Slf4j
 @RestControllerAdvice
 @SuppressWarnings("all")
-public class ExceptionHandling implements ErrorController {
+public class ExceptionHandling {
 
     public static final String ACCOUNT_LOCKED = "Your account has been locked. Please contact administration";
     public static final String METHOD_IS_NOT_ALLOWED = "This request method is not allowed on this endpoint. Please send a '%s' request";
@@ -126,13 +126,14 @@ public class ExceptionHandling implements ErrorController {
 
     }
 
-    @Override
-    public String getErrorPath() {
-        return ERROR_PATH;
-    }
+//    @Override
+//    public String getErrorPath() {
+//        return ERROR_PATH;
+//    }
+//
+//    @RequestMapping(ERROR_PATH)
+//    public ResponseEntity<HttpResponse> notFound404(Exception ex) {
+//        return createHttpResponse(NOT_FOUND, "There is no mapping for this URL");
+//    }
 
-    @RequestMapping(ERROR_PATH)
-    public ResponseEntity<HttpResponse> notFound404(Exception ex) {
-        return createHttpResponse(NOT_FOUND, "There is no mapping for this URL");
-    }
 }
