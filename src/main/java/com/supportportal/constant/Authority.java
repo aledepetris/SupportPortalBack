@@ -17,6 +17,6 @@ public class Authority {
     public static final String[] HR_AUTHORITIES = { USER_READ, USER_UPDATE };
     public static final String[] MANAGER_AUTHORITIES = { USER_READ, USER_UPDATE };
     public static final String[] ADMIN_AUTHORITIES = { USER_READ, USER_UPDATE, USER_CREATE };
-    public static final String[] SUPER_USER_AUTHORITIES = {USER_READ, USER_UPDATE, USER_CREATE, USER_DELETE };
+    public static final String[] SUPER_ADMIN_AUTHORITIES = {USER_READ, USER_UPDATE, USER_CREATE, USER_DELETE };
 
 }
