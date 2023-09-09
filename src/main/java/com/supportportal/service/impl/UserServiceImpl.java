@@ -30,7 +30,7 @@ import static org.apache.commons.lang3.StringUtils.EMPTY;
 @Log4j2
 @Service
 @Transactional
-@Qualifier("UserDetailService")
+@Qualifier("userDetailsService")
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
