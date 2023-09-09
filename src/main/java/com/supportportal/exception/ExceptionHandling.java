@@ -119,7 +119,7 @@ public class ExceptionHandling implements ErrorController {
                 .httpStatusCode(httpStatus.value())
                 .httpStatus(httpStatus)
                 .reason(httpStatus.getReasonPhrase().toUpperCase())
-                .message(message)
+                .message(message.toUpperCase())
                 .build();
 
         return ResponseEntity.status(httpStatus).body(httpResponse);
