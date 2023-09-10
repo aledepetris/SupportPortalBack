@@ -36,7 +36,6 @@ public class UserResource extends ExceptionHandling {
 
     @PostMapping("/login")
     public ResponseEntity<User> login(@RequestBody @Valid UserLoginRequest user) {
-            // throws UserNotFoundException, EmailExistException, UsernameExistException {
         authenticate(user.getUsername(), user.getPassword());
         User loginUser = userService.findUserByUsername(user.getUsername());
         UserPrincipal userPrincipal = new UserPrincipal(loginUser);
