@@ -18,6 +18,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
 import javax.validation.Valid;
@@ -114,6 +115,12 @@ public class UserResource extends ExceptionHandling {
     public ResponseEntity<HttpResponse> deleteUser(@PathVariable("username") String username) throws IOException {
         userService.deleteUser(username);
         return response(OK, USER_DELETED_SUCCESSFULLY);
+    }
+
+    @PostMapping("/updateProfileImage")
+    public ResponseEntity<User> updateProfileImage(@RequestParam("username") String username, @RequestParam(value = "profileImage") MultipartFile profileImage) throws UserNotFoundException, UsernameExistException, EmailExistException, IOException, NotAnImageFileException {
+        User user = userService.updateProfileImage(username, profileImage);
+        return new ResponseEntity<>(user, OK);
     }
 
     private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {
