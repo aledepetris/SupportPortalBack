@@ -6,6 +6,7 @@ import com.supportportal.exception.domain.EmailExistException;
 import com.supportportal.exception.domain.UserNotFoundException;
 import com.supportportal.exception.domain.UsernameExistException;
 import com.supportportal.repository.UserRepository;
+import com.supportportal.service.EmailService;
 import com.supportportal.service.LoginAttemptService;
 import com.supportportal.service.UserService;
 import lombok.extern.log4j.Log4j2;
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.mail.MessagingException;
 import java.util.Date;
 import java.util.List;
 
@@ -40,7 +42,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     private LoginAttemptService loginAttemptService;
-
+    @Autowired
+    private EmailService emailService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -71,7 +74,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public User register(String firstName, String lastName, String username, String email)
-            throws UserNotFoundException, EmailExistException, UsernameExistException {
+            throws UserNotFoundException, EmailExistException, UsernameExistException, MessagingException {
 
         validateNewUsernameAndEmail(EMPTY, username, email);
         User user = new User();
@@ -92,6 +95,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
         userRepository.save(user);
         log.info("New user password: {}", password);
+        emailService.sendNewPasswordEmail(firstName, password, email);
         return user;
 
     }

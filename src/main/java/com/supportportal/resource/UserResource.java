@@ -17,6 +17,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 
 import static com.supportportal.constant.SecurityConstant.JWT_TOKEN_HEADER;
@@ -34,7 +35,8 @@ public class UserResource extends ExceptionHandling {
     private JWTTokenProvider jwtTokenProvider;
 
     @PostMapping("/login")
-    public ResponseEntity<User> login(@RequestBody @Valid UserLoginRequest user) throws UserNotFoundException, EmailExistException, UsernameExistException {
+    public ResponseEntity<User> login(@RequestBody @Valid UserLoginRequest user) {
+            // throws UserNotFoundException, EmailExistException, UsernameExistException {
         authenticate(user.getUsername(), user.getPassword());
         User loginUser = userService.findUserByUsername(user.getUsername());
         UserPrincipal userPrincipal = new UserPrincipal(loginUser);
@@ -43,7 +45,8 @@ public class UserResource extends ExceptionHandling {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody @Valid UserRegisterRequest user) throws UserNotFoundException, EmailExistException, UsernameExistException {
+    public ResponseEntity<User> register(@RequestBody @Valid UserRegisterRequest user)
+            throws UserNotFoundException, EmailExistException, UsernameExistException, MessagingException {
         User newUser = userService.register(user.getFirstName(), user.getLastName(), user.getUsername(), user.getEmail());
         return ResponseEntity.status(OK).body(newUser);
     }
