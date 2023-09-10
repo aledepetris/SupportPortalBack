@@ -1,6 +1,10 @@
 package com.supportportal.constant;
 
 public class EmailConstant {
+    private EmailConstant() {
+        // Utility classes should not have public constructors
+    }
+
     public static final String SIMPLE_MAIL_TRANSFER_PROTOCOL = "smtps";
     public static final String USERNAME = "aledepetris.1991@gmail.com";
     public static final String PASSWORD = "hedw arxl civw dmdu";

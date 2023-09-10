@@ -3,7 +3,7 @@ package com.supportportal.constant;
 public class UserImplConstant {
 
     private UserImplConstant() {
-        throw new IllegalStateException("Utility class");
+        // Utility classes should not have public constructors
     }
 
     public static final String EMAIL_ALREADY_EXISTS = "Email already exists";
