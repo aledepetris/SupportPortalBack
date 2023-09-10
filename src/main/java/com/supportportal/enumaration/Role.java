@@ -1,6 +1,6 @@
 package com.supportportal.enumaration;
 
-import static com.supportportal.constant.Authority.*;
+import static com.supportportal.constant.AuthorityConstant.*;
 
 public enum Role {
 
