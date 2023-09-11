@@ -38,6 +38,7 @@ import static org.springframework.http.HttpStatus.*;
 import static org.springframework.http.MediaType.IMAGE_JPEG_VALUE;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping(path = {"/", "/user"})
 public class UserResource extends ExceptionHandling {
 
