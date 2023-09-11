@@ -11,7 +11,6 @@ import javax.validation.constraints.NotNull;
 @Getter @Setter
 public class UserRequest {
 
-    @NotBlank
     private String currentUsername;
     @NotNull @NotBlank
     private String firstName;
@@ -24,9 +23,9 @@ public class UserRequest {
     @NotNull @NotBlank
     private String role;
     @NotNull
-    private boolean isActive;
+    private String isActive;
     @NotNull
-    private boolean isNonLocked;
+    private String isNonLocked;
     private MultipartFile profileImage;
 
 }

@@ -13,6 +13,7 @@ import com.supportportal.utility.JWTTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -66,8 +67,8 @@ public class UserResource extends ExceptionHandling {
         return ResponseEntity.status(OK).body(newUser);
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<User> addNewUser(@RequestBody @Valid UserRequest user)
+    @PostMapping(value= "/add", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<User> addNewUser(@ModelAttribute @Valid UserRequest user)
             throws UserNotFoundException, UsernameExistException, EmailExistException, IOException, NotAnImageFileException {
         User newUser = userService.addNewUser(
                 user.getFirstName(),
@@ -75,15 +76,16 @@ public class UserResource extends ExceptionHandling {
                 user.getUsername(),
                 user.getEmail(),
                 user.getRole(),
-                user.isNonLocked(),
-                user.isActive(),
+                Boolean.parseBoolean(user.getIsNonLocked()),
+                Boolean.parseBoolean(user.getIsActive()),
                 user.getProfileImage());
         return new ResponseEntity<>(newUser, OK);
     }
 
-    @PostMapping("/update")
-    public ResponseEntity<User> update(@RequestBody @Valid UserRequest user)
+    @PostMapping(value = "/update", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<User> update(@ModelAttribute @Valid UserRequest user)
             throws UserNotFoundException, UsernameExistException, EmailExistException, IOException, NotAnImageFileException {
+        if (user.getCurrentUsername() == null) throw new UserNotFoundException("You need to specify the currentUser");
         User updatedUser = userService.updateUser(
                 user.getCurrentUsername(),
                 user.getFirstName(),
@@ -91,8 +93,8 @@ public class UserResource extends ExceptionHandling {
                 user.getUsername(),
                 user.getEmail(),
                 user.getRole(),
-                user.isNonLocked(),
-                user.isActive(),
+                Boolean.parseBoolean(user.getIsNonLocked()),
+                Boolean.parseBoolean(user.getIsActive()),
                 user.getProfileImage());
         return new ResponseEntity<>(updatedUser, OK);
     }
